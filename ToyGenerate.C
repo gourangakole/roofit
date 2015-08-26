@@ -1,3 +1,6 @@
+// Run me as: root -l ToyGenerate.C
+
+
 #ifndef __CINT__
 #include "RooGlobalFunc.h"
 #endif
