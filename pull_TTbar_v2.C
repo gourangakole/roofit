@@ -12,13 +12,14 @@
 #include "TRandom.h"
 
 using namespace RooFit ;
-pull_TTbar_v2()
+void pull_TTbar_v2()
 {
   TCanvas* c = new TCanvas("c","test",570,400);
   TFile *f0 = new TFile("./Mu_histograms_2J_1TTest_2_new.root");
+  TH1F *h1 = (TH1F*)(f0->Get("Mu_topMass__TTBar"))->Clone("h1");
   // Declare observable mtop
   RooRealVar mtop("mtop","M (GeV/c^{2})",80,360) ;
-  RooDataHist ds("ds","ds",mtop,Import(*Mu_topMass__TTBar)) ;
+  RooDataHist ds("ds","ds",mtop,Import(*h1)) ;
   // Print number of events in dataset
   ds.Print();
   // Print binned dataset with default frame 
