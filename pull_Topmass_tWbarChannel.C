@@ -12,17 +12,15 @@
 #include "TRandom.h"
 
 using namespace RooFit ;
-pull_Topmass_tWbarChannel()
+void pull_Topmass_tWbarChannel()
 {
 
-
-
-
-TCanvas* c = new TCanvas("c","test",570,400);
+  //TCanvas* c = new TCanvas("c","test",570,400);
   TFile *f0 = new TFile("./Mu_histograms_2J_1TTest_2_new.root");
+  TH1F *h1 = (TH1F*)(f0->Get("Mu_topMass__TbarWChannel"))->Clone("h1");
   // Declare observable mtop
   RooRealVar mtop("mtop","M (GeV/c^{2})",80,360) ;
-  RooDataHist ds("ds","ds",mtop,Import(*Mu_topMass__TbarWChannel)) ;
+  RooDataHist ds("ds","ds",mtop,Import(*h1)) ;
   // Print number of events in dataset
   ds.Print();
   // Print binned dataset with default frame 
@@ -76,7 +74,7 @@ TCanvas* c = new TCanvas("c","test",570,400);
   RooHist* hresid = frame->residHist();
   z2frame->addPlotable(hresid,"P") ;
 
-  TCanvas* c2 = new TCanvas("pull1","pull1",900,300) ;
+  TCanvas* c2 = new TCanvas("pull1","pull1",850,500) ;
   c2->Divide(2,1) ; // column, row
   double xmin = 80.0; double xmax = 360.0;
   TLine *line = new TLine(xmin,0.0,xmax,0.0);
@@ -90,23 +88,11 @@ TCanvas* c = new TCanvas("c","test",570,400);
  pdf.plotOn(frame,Components(RooArgList(bgtop)), LineColor(kGreen),LineStyle(2), LineWidth(4));
   
   
-
- frame->Draw();
-  // Double_t signalchi = frame->chiSquare(); 
  
-  c2->SaveAs("TTbar_pull.root");
-
-
-
-
-
-
-
-
-
-
-
-
-
+ frame->Draw();
+ // Double_t signalchi = frame->chiSquare(); 
+ 
+ c2->SaveAs("TTbar_pull.root");
+ 
 
 }
